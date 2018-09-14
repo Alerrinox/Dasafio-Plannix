@@ -3,7 +3,7 @@
       Nome do candidato: Rafael Barros de Oliveira
       E-Mail:            rafaelbarros2007@gmail.com
 
-  Projeto feito com CDN bootStrap e CDN axios.
+  Projeto feito com CDN bootStrap e PHP.
 -->
 <html lang="en">
   <head>
@@ -17,15 +17,46 @@
     <title>Pokémon!</title>
   </head>
   <body>
+
     <!-- conteúdo principal --> 
     <div class="container">
       <div class="jumbotron">
         <h1 class="display-4">Seja bem vindo treinador! </h1>
-        <p class="lead">Bem vindo ao mundo Pokémons, um universo livre e repleto de aventura.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        
+        <p class="lead">Bem vindo ao mundo Pokémon, um universo livre e repleto de aventura.</p>
       </div>
+
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">Buscar pokemon</div>
+          <form>
+              <input type="text" name="Pesquisa_de_Pokemon">
+              <input type="submit" value="Pesquisar Pokemon">
+          </form>
+          <div class="panel-body">
+
+            <?php
+            if (isset($_GET['Pesquisa_de_Pokemon'])) {
+                
+
+              $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
+              $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949");
+              $arrayDePokemons = json_decode($dados, true);
+              $pokemon = $arrayDePokemons['results'];
+              
+              foreach ($pokemon as $key => $value) {
+                if ($PokemonProcurado === $value['name'] || (((int)$PokemonProcurado) - 1) == $key) {
+                  
+                  echo (" Id: ".($key + 1)."<br> Nome: ".$value['name']."<br> Tipo: ??");
+
+                  break;
+                }
+              }
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ------------------------------------------------------------------- -->
@@ -38,9 +69,9 @@
 
     <!-- Optional JavaScript -->
     <!-- JavaScript -->
-     <script src="scripts/javaScript.js"></script>
+    <!-- <script src="scripts/javaScript.js"></script>  -->
     <!-- CDN AXIOS -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  -->
     <!-- ------------------------------------------------------------------- -->
     
   </body>

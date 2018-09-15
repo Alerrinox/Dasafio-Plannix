@@ -28,31 +28,60 @@
       <div class="container">
         <div class="panel panel-default">
           <div class="panel-heading">Buscar pokemon</div>
+          <!-- formulário de envio pra "Pesquisa_de_Pokemon" --> 
           <form>
               <input type="text" name="Pesquisa_de_Pokemon">
               <input type="submit" value="Pesquisar Pokemon">
           </form>
+
           <div class="panel-body">
-
+            <!------------------------------------------------------------------------------------>
+            <!----------------------- Código para buscar pokemon em PHP -------------------------->
+            <!------------------------------------------------------------------------------------>
             <?php
-            if (isset($_GET['Pesquisa_de_Pokemon'])) {
+
+              #---- isset pra tratamento de erro no primeiro carregamento ----
+              if (isset($_GET['Pesquisa_de_Pokemon'])) {
+
+                #---- variável do formalário responsável pela pesquisa ----
+                $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
+
+                #---- (49) requerindo da url, (50) convertendo o json pra vetor, (51) armazenando em uma variável pra pesquisa no vetor ----
+                ///////////---ALERTA : Esta lista é a nacional, ou seja tem todos os 949 pokémons pode se que atrase no carregamento--- //////////
+                ///////////---ALERTA : Caso queria trabalhar com menos Pokémon basta colocar o número de pokémons menor em /?limit= XXX ---//////////
+                $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949"); 
+                $arrayDePokemons = json_decode($dados, true);
+                $pokemon = $arrayDePokemons['results'];
                 
+                #---- foreach correndo vetor o pokemon na URL pokemon/national/  ----
+                foreach ($pokemon as $key => $value) {
+                   #--- comparando pokémon do Formulário pelo o nome OU pelo número de ID ---
+                  if (strtolower($PokemonProcurado) === $value['name'] || (((int)$PokemonProcurado) - 1) == $key) {
 
-              $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
-              $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949");
-              $arrayDePokemons = json_decode($dados, true);
-              $pokemon = $arrayDePokemons['results'];
-              
-              foreach ($pokemon as $key => $value) {
-                if ($PokemonProcurado === $value['name'] || (((int)$PokemonProcurado) - 1) == $key) {
-                  
-                  echo (" Id: ".($key + 1)."<br> Nome: ".$value['name']."<br> Tipo: ??");
+                    #--- Acessando dados do Pokemon direto da URL do seu registro --- 
+                    $dados = file_get_contents($value['url']);
+                    $arrayDoPokemon = json_decode($dados, true);
 
-                  break;
+                    #---- Printando na tela os dados na pesquisa / o número do pokémon  / nome do pokémon / e o tipo que esta no while logo a baixo -----
+                    echo (" Id: ".($key + 1)."<br> Nome: ".$value['name']."<br> Tipo: ");
+
+                    #------- Alguns dos pokémons tem mais de um tipo e o while irá verificar se tem que todos o types foram exibidos -------- 
+                      $countControl = 0;
+                    while (isset($arrayDoPokemon['types'][ $countControl ]["type"]['name'])){
+                      # printando tipo ou tipos
+                      echo ($arrayDoPokemon['types'][ $countControl ]["type"]['name']." ");
+                        $countControl++;
+                    }
+                    # -- Break esta aqui pra evitar percorre o vetor todo sem necessidade --
+                    break;
+                  }
                 }
+
               }
-            }
             ?>
+            <!------------------------------------------------------------------------------------>
+            <!------------------------------------------------------------------------------------>
+            <!------------------------------------------------------------------------------------>
           </div>
         </div>
       </div>

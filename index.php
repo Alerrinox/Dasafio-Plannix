@@ -24,20 +24,24 @@
         <h1 class="display-4">Seja bem vindo treinador! </h1>
         <p class="lead">Bem vindo ao mundo Pokémon, um universo livre e repleto de aventura.</p>
       </div>
-
+    </div>
       <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">Buscar pokemon</div>
+          <br>
           <!-- formulário de envio pra "Pesquisa_de_Pokemon" --> 
-          <form>
-              <input type="text" name="Pesquisa_de_Pokemon">
-              <input type="submit" value="Pesquisar Pokemon">
+          <form class="dd-flex align-items-stretch justify-content-center">
+            <div class="form-group">
+              <label for="pokedex">Pesquisa Pokédex</label><br>
+              <input class="form-control col-md-4" type="text" id="pokedex" name="Pesquisa_de_Pokemon" placeholder="Digite o nome ou o número do pokémon">
+            </div>
+            <div class="form-group ">
+              <input class="btn btn-default" type="submit" value="Pesquisar Pokemon">
+            </div>
           </form>
 
-          <div class="panel-body">
-            <!------------------------------------------------------------------------------------>
-            <!----------------------- Código para buscar pokemon em PHP -------------------------->
-            <!------------------------------------------------------------------------------------>
+          <div class="container">
+            <!---------------------------------------------------------------------------------------->
+            <!------------------------- Código para buscar pokemon em PHP ---------------------------->
+            <!---------------------------------------------------------------------------------------->
             <?php
 
               #---- isset pra tratamento de erro no primeiro carregamento ----
@@ -70,6 +74,7 @@
                     while (isset($arrayDoPokemon['types'][ $countControl ]["type"]['name'])){
                       # printando tipo ou tipos
                       echo ($arrayDoPokemon['types'][ $countControl ]["type"]['name']." ");
+
                         $countControl++;
                     }
                     # -- Break esta aqui pra evitar percorre o vetor todo sem necessidade --
@@ -79,16 +84,15 @@
 
               }
             ?>
-            <!------------------------------------------------------------------------------------>
-            <!------------------------------------------------------------------------------------>
-            <!------------------------------------------------------------------------------------>
+            <!---------------------------------------------------------------------------------------->
+            <!---------------------------------------------------------------------------------------->
+            <!---------------------------------------------------------------------------------------->
           </div>
-        </div>
       </div>
 
-    </div>
+    
 
-    <!-- ------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------ -->
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

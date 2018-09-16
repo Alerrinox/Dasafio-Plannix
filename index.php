@@ -14,23 +14,29 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- CSS da Pasta CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
     <title>Pokémon!</title>
   </head>
   <body>
 
-    <!-- conteúdo principal --> 
-    <div class="container">
-      <div class="jumbotron">
+    <!-- conteúdo principal -->
+    <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000; height: 56px;">
+        <a href="#" class="d-inline-block align-top logo"></a>
+      </nav>
+      <div class="jumbotron CssTransparencia">
         <h1 class="display-4">Seja bem vindo treinador! </h1>
         <p class="lead">Bem vindo ao mundo Pokémon, um universo livre e repleto de aventura.</p>
       </div>
-    </div>
+    
       <div class="container">
           <br>
           <!-- formulário de envio pra "Pesquisa_de_Pokemon" --> 
-          <form class="dd-flex align-items-stretch justify-content-center">
+          <form class="formulario">
             <div class="form-group">
-              <label for="pokedex">Pesquisa Pokédex</label><br>
+              <label for="pokedex" class="CssColor">Pesquisa Pokédex</label><br>
               <input class="form-control col-md-4" type="text" id="pokedex" name="Pesquisa_de_Pokemon" placeholder="Digite o nome ou o número do pokémon">
             </div>
             <div class="form-group ">
@@ -39,56 +45,78 @@
           </form>
 
           <div class="container">
-            <!---------------------------------------------------------------------------------------->
-            <!------------------------- Código para buscar pokemon em PHP ---------------------------->
-            <!---------------------------------------------------------------------------------------->
-            <?php
+            <div class="text-center">
+              <div class="PaiPHP">
+                <!-- Imagem da pokedex -->
+                  <img src="img/Pokédex_Kanto.png" class="rounded" alt="...">
 
-              #---- isset pra tratamento de erro no primeiro carregamento ----
-              if (isset($_GET['Pesquisa_de_Pokemon'])) {
+                  <!---------------------------------------------------------------------------------------->
+                  <!------------------------- Código para buscar pokemon em PHP ---------------------------->
+                  <!---------------------------------------------------------------------------------------->
+                  <?php
 
-                #---- variável do formalário responsável pela pesquisa ----
-                $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
+                    #---- isset pra tratamento de erro no primeiro carregamento ----
+                    if (isset($_GET['Pesquisa_de_Pokemon'])) {
 
-                #---- (49) requerindo da url, (50) convertendo o json pra vetor, (51) armazenando em uma variável pra pesquisa no vetor ----
-                ///////////---ALERTA : Esta lista é a nacional, ou seja tem todos os 949 pokémons pode se que atrase no carregamento--- //////////
-                ///////////---ALERTA : Caso queria trabalhar com menos Pokémon basta colocar o número de pokémons menor em /?limit= XXX ---//////////
-                $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949"); 
-                $arrayDePokemons = json_decode($dados, true);
-                $pokemon = $arrayDePokemons['results'];
-                
-                #---- foreach correndo vetor o pokemon na URL pokemon/national/  ----
-                foreach ($pokemon as $key => $value) {
-                   #--- comparando pokémon do Formulário pelo o nome OU pelo número de ID ---
-                  if (strtolower($PokemonProcurado) === $value['name'] || (((int)$PokemonProcurado) - 1) == $key) {
+                      #---- variável do formalário responsável pela pesquisa ----
+                      $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
 
-                    #--- Acessando dados do Pokemon direto da URL do seu registro --- 
-                    $dados = file_get_contents($value['url']);
-                    $arrayDoPokemon = json_decode($dados, true);
+                      #---- (49) requerindo da url, (50) convertendo o json pra vetor, (51) armazenando em uma variável pra pesquisa no vetor ----
+                      ///////////---ALERTA : Esta lista é a nacional, ou seja tem todos os 949 pokémons pode se que atrase no carregamento--- //////////
+                      ///////////---ALERTA : Caso queria trabalhar com menos Pokémon basta colocar o número de pokémons menor em /?limit= XXX ---//////////
+                      $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949"); 
+                      $arrayDePokemons = json_decode($dados, true);
+                      $pokemon = $arrayDePokemons['results'];
+                      
+                      #---- foreach correndo vetor o pokemon na URL pokemon/national/  ----
+                      foreach ($pokemon as $key => $value) {
+                         #--- comparando pokémon do Formulário pelo o nome OU pelo número de ID ---
+                        if (strtolower($PokemonProcurado) === $value['name'] || (((int)$PokemonProcurado) - 1) == $key) {
 
-                    #---- Printando na tela os dados na pesquisa / o número do pokémon  / nome do pokémon / e o tipo que esta no while logo a baixo -----
-                    echo (" Id: ".($key + 1)."<br> Nome: ".$value['name']."<br> Tipo: ");
+                          #--- Acessando dados do Pokemon direto da URL do seu registro --- 
+                          $dados = file_get_contents($value['url']);
+                          $arrayDoPokemon = json_decode($dados, true);
 
-                    #------- Alguns dos pokémons tem mais de um tipo e o while irá verificar se tem que todos o types foram exibidos -------- 
-                      $countControl = 0;
-                    while (isset($arrayDoPokemon['types'][ $countControl ]["type"]['name'])){
-                      # printando tipo ou tipos
-                      echo ($arrayDoPokemon['types'][ $countControl ]["type"]['name']." ");
+                          #---- Printando na tela os dados na pesquisa / o número do pokémon  / nome do pokémon / e o tipo que esta no while logo a baixo -----
+                          echo ('<div class="PositionID"><span> ID: '.($key + 1)."</span></div>");
+                          echo ('<div class="PositionNome">  Nome: '.$value['name']."</div>");
 
-                        $countControl++;
+                           #---- Printando a imagem do pokemon /sprites/front_default -----
+                          $dados = file_get_contents($arrayDoPokemon['forms'][0]['url']);
+                          $arrayDaformaDoPokemon = json_decode($dados, true);
+                          $url = $arrayDaformaDoPokemon['sprites']['front_default'];
+
+                          echo '<div class="FormaFisica"><img src='.$url."></div>";
+
+
+                          #------- Alguns dos pokémons tem mais de um tipo e o while irá verificar se tem que todos o types foram exibidos -------- 
+                            $countControl = 0;
+                          while (isset($arrayDoPokemon['types'][ $countControl ]["type"]['name'])){
+                            # printando tipo ou tipos
+                            echo ("<div class='PositionTipo".$countControl."'>".$arrayDoPokemon['types'][ $countControl ]["type"]['name']."</div>");
+
+                              $countControl++;
+                          }
+                          
+                          # -- Break esta aqui pra evitar percorre o vetor todo sem necessidade --
+                          break;
+                        }
+                      }
                     }
-                    # -- Break esta aqui pra evitar percorre o vetor todo sem necessidade --
-                    break;
-                  }
-                }
-
-              }
-            ?>
-            <!---------------------------------------------------------------------------------------->
-            <!---------------------------------------------------------------------------------------->
-            <!---------------------------------------------------------------------------------------->
-          </div>
+                  ?>
+                </div>
+              </div>
+            </div>
+        <!---------------------------------------------------------------------------------------->
       </div>
+    <!-- Rodapé básico e duas linhas de enfeite -->
+    <hr class="linhaVermelha">
+    <hr class="linhaBranca">
+  <footer class="footer">
+    <div class="footer-copyright CssColor text-center">© 2018 Copyright:
+    <a href="#"> FanaticosPorPokemons.com.br</a>
+    </div>
+  </footer>
 
     
 

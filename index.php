@@ -26,21 +26,21 @@
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#000; height: 56px;">
         <a href="#" class="d-inline-block align-top logo"></a>
       </nav>
+      <hr class="linhaBranca">
       <div class="jumbotron CssTransparencia">
-        <h1 class="display-4">Seja bem vindo treinador! </h1>
-        <p class="lead">Bem vindo ao mundo Pokémon, um universo livre e repleto de aventura.</p>
+        <h1 class="display-4 ConteudoJumbotron">Seja bem vindo treinador! </h1>
+        <p class="lead ConteudoJumbotron">Bem vindo ao mundo Pokémon, um universo livre e repleto de aventura.</p>
       </div>
     
       <div class="container">
-          <br>
           <!-- formulário de envio pra "Pesquisa_de_Pokemon" --> 
           <form class="formulario">
             <div class="form-group">
               <label for="pokedex" class="CssColor">Pesquisa Pokédex</label><br>
-              <input class="form-control col-md-4" type="text" id="pokedex" name="Pesquisa_de_Pokemon" placeholder="Digite o nome ou o número do pokémon">
+              <input class="CorInput form-control col-md-4" type="text" id="pokedex" name="Pesquisa_de_Pokemon" placeholder="Digite o nome ou o número do pokémon">
             </div>
             <div class="form-group ">
-              <input class="btn btn-default" type="submit" value="Pesquisar Pokemon">
+              <input class="btn btn-secondary" type="submit" value="Pesquisar Pokemon">
             </div>
           </form>
 
@@ -58,6 +58,8 @@
                     #---- isset pra tratamento de erro no primeiro carregamento ----
                     if (isset($_GET['Pesquisa_de_Pokemon'])) {
 
+                      try {
+                      
                       #---- variável do formalário responsável pela pesquisa ----
                       $PokemonProcurado = $_GET['Pesquisa_de_Pokemon'];
 
@@ -67,7 +69,6 @@
                       $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949"); 
                       $arrayDePokemons = json_decode($dados, true);
                       $pokemon = $arrayDePokemons['results'];
-                      
                       #---- foreach correndo vetor o pokemon na URL pokemon/national/  ----
                       foreach ($pokemon as $key => $value) {
                          #--- comparando pokémon do Formulário pelo o nome OU pelo número de ID ---
@@ -102,7 +103,10 @@
                           break;
                         }
                       }
+
+                      } catch (Exception $e) {  }
                     }
+
                   ?>
                 </div>
               </div>
@@ -113,7 +117,7 @@
     <hr class="linhaVermelha">
     <hr class="linhaBranca">
   <footer class="footer">
-    <div class="footer-copyright CssColor text-center">© 2018 Copyright:
+    <div class="footer-copyright footerTexto text-center">© 2018 Copyright:
     <a href="#"> FanaticosPorPokemons.com.br</a>
     </div>
   </footer>

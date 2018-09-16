@@ -24,16 +24,27 @@ body{
     top: 18%;
     left: 50%;
     margin-left:-145px;
+    z-index: 1;
 }
-/*  transparencia pra junbotron */
+/*  transparencia pra jumbotron */
 .CssTransparencia{
-  background-color: rgba(255,255,255, 0.4);
+  background: linear-gradient(#bc2300,#111,#000,#000,#111,transparent);
   color: inherit;
   text-align: center;
+  margin-bottom: 0;
+  padding: 60px 34px;
+}
+/* textos dentro do jumbotron */
+.ConteudoJumbotron{
+  color: #fff !important;
 }
 /*  pra enchergar os caracteres */
 .CssColor{
   color: white;
+  background: linear-gradient(transparent,black,black,transparent);
+  font-size: 18pt;
+  font-family: Arial;
+  font-weight: 900;
 }
 /*conjunto de entrada (input, label e submit) da pokédex */
 .formulario{
@@ -43,6 +54,11 @@ body{
   align-items: center;
   text-align: center;
 }
+.CorInput {
+  border-color: #bc2300;
+  border-width: 3px;
+}
+
 /*campo de Input da pokédex */
 #pokedex{
   display: inline;
@@ -124,6 +140,9 @@ body{
     width: 100%;
     height: 64px;
     line-height: 60px;
+}
+.footerTexto {
+    color: white;
 }
 /*linha do rodapé Vermelha*/
 .linhaVermelha {

@@ -18,6 +18,8 @@
     <!-- CSS da Pasta CSS, também tem a versão minificada (site de minificação https://cssminifier.com/)  -->
     <link rel="stylesheet" type="text/css" href="css/style.min.css">
 
+    <link rel="icon" href="img/faviconPokemon.png" type="image/gif" sizes="16x16">
+
     <title>Pokémon!</title>
   </head>
   <body>
@@ -67,7 +69,8 @@
                       #---- (49) requerindo da url, (50) convertendo o json pra vetor, (51) armazenando em uma variável pra pesquisa no vetor ----
                       ///////////---ALERTA : Esta lista é a nacional, ou seja tem todos os 949 pokémons pode se que atrase no carregamento--- //////////
                       ///////////---ALERTA : Caso queria trabalhar com menos Pokémon basta colocar o número de pokémons menor em /?limit= XXX ---//////////
-                      $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=949"); 
+		      //// pokmons foram reduzidos até a temporada johto, de 949 foi pra 251.//
+                      $dados = file_get_contents("https://pokeapi.co/api/v2/pokemon/?limit=251"); 
                       $arrayDePokemons = json_decode($dados, true);
                       $pokemon = $arrayDePokemons['results'];
                       #---- foreach correndo vetor o pokemon na URL pokemon/national/  ----

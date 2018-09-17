@@ -86,10 +86,8 @@
                           echo ('<div class="PositionID"><span> ID: '.($key + 1)."</span></div>");
                           echo ('<div class="PositionNome">  Nome: '.$value['name']."</div>");
 
-                           #---- Printando a imagem do pokemon /sprites/front_default -----
-                          $dados = file_get_contents($arrayDoPokemon['forms'][0]['url']);
-                          $arrayDaformaDoPokemon = json_decode($dados, true);
-                          $url = $arrayDaformaDoPokemon['sprites']['front_default'];
+                          #---- Printando a imagem do pokemon /sprites/front_default -----
+                          $url = $arrayDoPokemon['sprites']['front_default'];
 
                           echo '<div class="FormaFisica"><img src='.$url."></div>";
 

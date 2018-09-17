@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <!-- Desafio Plannix 
       Nome do candidato: Rafael Barros de Oliveira
       E-Mail:            rafaelbarros2007@gmail.com
@@ -135,7 +135,7 @@
 
     <!-- Optional JavaScript -->
     <!-- JavaScript -->
-    <!-- <script src="scripts/javaScript.js"></script>  -->
+
     <!-- CDN AXIOS -->
     <!--  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  -->
     <!-- ------------------------------------------------------------------- -->

@@ -2,6 +2,7 @@
 <!-- Desafio Plannix 
       Nome do candidato: Rafael Barros de Oliveira
       E-Mail:            rafaelbarros2007@gmail.com
+      GitHub:            https://github.com/Alerrinox
 
   Projeto feito com CDN bootStrap e PHP.
 -->
@@ -14,8 +15,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- CSS da Pasta CSS -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- CSS da Pasta CSS, também tem a versão minificada (site de minificação https://cssminifier.com/)  -->
+    <link rel="stylesheet" type="text/css" href="css/style.min.css">
 
     <title>Pokémon!</title>
   </head>
